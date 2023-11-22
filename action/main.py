@@ -6,7 +6,7 @@ from subprocess import check_call
 
 VERSION = os.getenv("INPUT_VERSION", default="")
 ENVIRONMENT = os.environ["INPUT_ENVIRONMENT"]
-PROJECT = os.environ["INPUT_PROJECT"]
+PROJECT = os.environ["INPUT_PROJECT_ID"]
 DKEY = os.environ["INPUT_DKEY"]
 WORKING_DIR = os.environ["INPUT_WORKING_DIR"]
 
