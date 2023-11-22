@@ -1,0 +1,31 @@
+name: "LaunchFlow Deploy Action"
+description: "GitHub action to deploy your code to LaunchFlow"
+author: "LaunchFlow Inc."
+inputs:
+  project_id:
+    description: "The LaunchFlow project to deploy to. Should be of the format `project_XXXXXX`"
+    required: true
+  environment:
+    description: "The LaunchFlow environment in the project to deploy to."
+    required: true
+  dkey:
+    description: "The LaunchFlow deployment key for the environment to use for authentication."
+    required: true
+  working_dir:
+    description: "The working directory to run the deploy from. Defaults to the root of the repository."
+    required: false
+    default: "."
+branding:
+  icon: "cloud"
+  color: "purple"
+runs:
+  using: composite
+  steps:
+    - run: |
+        python3 $GITHUB_ACTION_PATH/action/main.py
+      env:
+        INPUT_ENVIRONMET: ${{ inputs.environment }}
+        INPUT_PROJECT_ID: ${{ inputs.project_id }}
+        INPUT_DKEY: ${{ inputs.dkey }}
+        INPUT_WORKING_DIR: ${{ inputs.working_dir }}
+      shell: bash
