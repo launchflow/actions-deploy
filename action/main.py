@@ -19,9 +19,7 @@ if VERSION != "":
 
 req = f"ruff{version_specifier}"
 
-cmd = "pip install --pre launchflow"
-check_call(cmd, shell=True)
-cmd = "launch config set-server-address https://dev.apis.launchflow.com"
+cmd = "pip install launchflow"
 check_call(cmd, shell=True)
 cmd = (
     "launch deployments update-environment "
