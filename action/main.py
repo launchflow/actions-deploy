@@ -1,4 +1,4 @@
-"""GitHub Action for Ruff."""
+"""GitHub Action for LaunchFlow Deploy."""
 import os
 import re
 import sys
@@ -9,6 +9,7 @@ ENVIRONMENT = os.environ["INPUT_ENVIRONMENT"]
 PROJECT = os.environ["INPUT_PROJECT_ID"]
 DKEY = os.environ["INPUT_DKEY"]
 WORKING_DIR = os.environ["INPUT_WORKING_DIR"]
+CLI_VERSION = os.getenv("INPUT_CLI_VERSION", None)
 
 version_specifier = ""
 if VERSION != "":
@@ -17,9 +18,10 @@ if VERSION != "":
         sys.exit(1)
     version_specifier = f"=={VERSION}"
 
-req = f"ruff{version_specifier}"
-
-cmd = "pip install launchflow"
+if CLI_VERSION is not None:
+    cmd = f"pip install launchflow=={CLI_VERSION}"
+else:
+    cmd = "pip install launchflow"
 check_call(cmd, shell=True)
 cmd = (
     "launch deployments update-environment "
